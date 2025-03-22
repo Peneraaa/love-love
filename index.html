@@ -117,12 +117,14 @@
         .submit-button {
             margin-top: 30px;
         }
+
+        
     </style>
 </head>
 <body>
     <div id="main-container" class="container text-center bg-white p-5 shadow rounded">
-        <h1 class="mb-4">Eai Camille</h1>
-        <h2> Aceita ir em um date comigo ?</h2>
+        <h1 class="mb-4">Oi Camille</h1>
+        <h2> Vai finalmente aceitar ir em um date comigo ?</h2>
         <div class="button-container">
             <button onclick="redirectToOptions()" class="btn btn-success btn-lg">Sim</button>
             <button onclick="nao()" id="naoBtn" class="btn btn-danger btn-lg">Não</button>
@@ -132,14 +134,14 @@
     <!-- Modal -->
     <div class="modal-overlay" id="modal">
         <div class="modal-box">
-            <h2>Não vou desistir tão fácil!</h2>
+            <h2>Não vou desistir de você tão fácil!</h2>
             <button class="btn btn-primary" onclick="closeModal()">OK</button>
         </div>
     </div>
 
     <script>
         let clickCount = 0;
-        const maxClicks = 5;
+        const maxClicks = 3;
 
         function nao() {
             const naoBtn = document.getElementById("naoBtn");
@@ -169,7 +171,7 @@
         function redirectToOptions() {
     const container = document.getElementById("main-container");
     container.innerHTML = `
-        <h1>Escolha o lugar que deseja ir</h1>
+        <h1>Escolha aonde eu devo te levar</h1>
         <div class="container-options">
             <div class="option" onclick="selectOption(this)">
                 <img src="donna_ninpha.png" alt="Donna Ninpha">
@@ -236,7 +238,7 @@
         lugar: selectedOption,
         data: selectedDate
     }).then(response => {
-        alert("Informações enviadas com sucesso!");
+        alert("Espero você em nosso date!");
         console.log("Sucesso:", response);
     }).catch(error => {
         alert("Erro ao enviar as informações.");
