@@ -118,7 +118,10 @@
             margin-top: 30px;
         }
 
-        
+        textarea.selected {
+    border-color: #007BFF; /* Adiciona destaque azul */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra para destacar */
+}
     </style>
 </head>
 <body>
@@ -216,32 +219,44 @@
     `;
 }
 
-        function selectOption(element) {
-            const options = document.querySelectorAll('.option');
-            options.forEach(option => option.classList.remove('selected'));
-            element.classList.add('selected');
-        }
+function selectOption(element) {
+    const options = document.querySelectorAll('.option');
+    options.forEach(option => option.classList.remove('selected')); // Remove seleção de todas as opções
+    element.classList.add('selected'); // Adiciona a seleção ao item clicado
+
+    // Caso o elemento clicado seja o <textarea>, focá-lo para digitação
+    const customPlace = document.getElementById("customPlace");
+    if (element.contains(customPlace)) {
+        customPlace.focus();
+    }
+}
         </script>
         <script>
     emailjs.init("YnVjNseiLi2Y2cYvP"); // Inicialização do EmailJS (fora de sendData)
 
-function sendData() {
-    const selectedOption = document.querySelector('.option.selected p')?.textContent || document.getElementById("customPlace")?.value || "Nenhum lugar especificado";
-    const selectedDate = document.getElementById('datePicker').value;
+    function sendData() {
+    // Seleciona a opção marcada e verifica o valor do <textarea>
+    const selectedOption = document.querySelector('.option.selected p')?.textContent || ""; // Texto da opção selecionada
+    const customPlace = document.getElementById("customPlace").value.trim(); // Valor do textarea, sem espaços em branco
+    const selectedDate = document.getElementById('datePicker').value; // Data selecionada
 
-    if (!selectedOption || !selectedDate) {
-        alert("Por favor, selecione um lugar e uma data!");
+    // Prioriza o campo customizado caso esteja preenchido
+    const finalPlace = customPlace || selectedOption || "Nenhum lugar especificado";
+
+    if (!finalPlace || !selectedDate) {
+        alert("Por favor, selecione um lugar ou escreva no campo, e escolha uma data!");
         return;
     }
 
+    // Envio do e-mail usando EmailJS
     emailjs.send("service_tr47c6p", "template_sntw5v3", {
-        lugar: selectedOption,
+        lugar: finalPlace, // Lugar (predefinido ou texto customizado)
         data: selectedDate
     }).then(response => {
         alert("Espero você em nosso date!");
         console.log("Sucesso:", response);
 
-        // Limpar campos e redefinir estados visuais
+        // Reseta os campos e estados visuais após o envio
         document.getElementById('datePicker').value = '';
         document.getElementById('customPlace').value = '';
         const options = document.querySelectorAll('.option');
