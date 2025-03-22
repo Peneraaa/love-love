@@ -240,6 +240,12 @@
     }).then(response => {
         alert("Espero você em nosso date!");
         console.log("Sucesso:", response);
+
+        // Reseta os campos e estados visuais após o envio
+        document.getElementById('datePicker').value = '';
+        document.getElementById('customPlace').value = '';
+        const options = document.querySelectorAll('.option');
+        options.forEach(option => option.classList.remove('selected'));
     }).catch(error => {
         alert("Erro ao enviar as informações.");
         console.log("Erro:", error);
