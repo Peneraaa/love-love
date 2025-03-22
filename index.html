@@ -167,51 +167,52 @@
         }
 
         function redirectToOptions() {
-            const container = document.getElementById("main-container");
-            container.innerHTML = `
-                <h1>Escolha o lugar que deseja ir</h1>
-                <div class="container-options">
-                    <div class="option" onclick="selectOption(this)">
-                        <img src="donna_ninpha.png" alt="Donna Ninpha">
-                        <p>Donna Ninpha</p>
-                    </div>
-                    <div class="option" onclick="selectOption(this)">
-                        <img src="estilolivre.png" alt="Estilo Livre">
-                        <p>Estilo Livre</p>
-                    </div>
-                    <div class="option" onclick="selectOption(this)">
-                        <img src="o_jabo.png" alt="Jabô">
-                        <p>Jabô</p>
-                    </div>
-                    <div class="option" onclick="selectOption(this)">
-                        <img src="blackbull.png" alt="Black Bull">
-                        <p>Black Bull</p>
-                        </div>
-                    <div class="option" onclick="selectOption(this)">
-                        <img src="barurso.png" alt="Bar do Urso">
-                        <p>Bar do Urso</p>
-                        </div>
-                    <div class="option" onclick="selectOption(this)">
-                        <img src="haka.png" alt="Haka">
-                        <p>Haka</p>
-                        </div>
-                    <div class="option" onclick="selectOption(this)">
-                        <img src="santobar.png" alt="Santo Bar">
-                        <p>Santo Bar</p>
-                    </div>
-                     <div class="option">
-                        <textarea class="form-control" rows="3" placeholder="Outra opção ? fala pra mim..." id="customPlace"></textarea>
-                    </div>
-                </div>
-                <div class="date-container">
-                    <label for="datePicker">Data de disponibilidade da princesa</label><br>
-                    <input type="date" id="datePicker">
-                </div>
-                <div class="submit-button">
-                    <button class="btn btn-primary btn-lg" onclick="sendData()">Enviar</button>
-                </div>
-            `;
-        }
+    const container = document.getElementById("main-container");
+    container.innerHTML = `
+        <h1>Escolha o lugar que deseja ir</h1>
+        <div class="container-options">
+            <div class="option" onclick="selectOption(this)">
+                <img src="donna_ninpha.png" alt="Donna Ninpha">
+                <p>Donna Ninpha</p>
+            </div>
+            <div class="option" onclick="selectOption(this)">
+                <img src="estilolivre.png" alt="Estilo Livre">
+                <p>Estilo Livre</p>
+            </div>
+            <div class="option" onclick="selectOption(this)">
+                <img src="o_jabo.png" alt="Jabô">
+                <p>Jabô</p>
+            </div>
+            <div class="option" onclick="selectOption(this)">
+                <img src="blackbull.png" alt="Black Bull">
+                <p>Black Bull</p>
+            </div>
+            <div class="option" onclick="selectOption(this)">
+                <img src="barurso.png" alt="Bar do Urso">
+                <p>Bar do Urso</p>
+            </div>
+            <div class="option" onclick="selectOption(this)">
+                <img src="haka.png" alt="Haka">
+                <p>Haka</p>
+            </div>
+            <div class="option" onclick="selectOption(this)">
+                <img src="santobar.png" alt="Santo Bar">
+                <p>Santo Bar</p>
+            </div>
+            <div class="option">
+                <textarea class="form-control" rows="3" placeholder="Outra opção? Fala pra mim..." id="customPlace"></textarea>
+            </div>
+        </div>
+        <div class="date-container">
+            <label for="datePicker">Data de disponibilidade da princesa</label><br>
+            <input type="date" id="datePicker">
+        </div>
+        </div>
+        <div class="submit-button">
+            <button class="btn btn-primary btn-lg" onclick="sendData()">Enviar</button>
+        </div>
+    `;
+}
 
         function selectOption(element) {
             const options = document.querySelectorAll('.option');
@@ -223,25 +224,23 @@
     emailjs.init("YnVjNseiLi2Y2cYvP"); // Inicializa o EmailJS com sua chave pública
 
     function sendData() {
-        const selectedOption = document.querySelector('.option.selected p')?.textContent || document.getElementById("customPlace")?.value || "Nenhum lugar especificado";
-        const selectedDate = document.getElementById('datePicker').value;
-        const emailRemetente = document.getElementById("emailInput")?.value;
+    const selectedOption = document.querySelector('.option.selected p')?.textContent || document.getElementById("customPlace")?.value || "Nenhum lugar especificado";
+    const selectedDate = document.getElementById('datePicker').value;
 
-        if (!selectedOption || !selectedDate || !emailRemetente) {
-            alert("Por favor, preencha todos os campos antes de enviar!");
-            return;
-        }
-
-        emailjs.send("service_pwpfk0o", "template_5ukxwo1", {
-            lugar: selectedOption,
-            data: selectedDate,
-            email: emailRemetente
-        }).then(response => {
-            alert("Informações enviadas com sucesso!");
-            console.log("Sucesso:", response);
-        }).catch(error => {
-            alert("Erro ao enviar as informações.");
-            console.log("Erro:", error);
-        });
+    if (!selectedOption || !selectedDate) {
+        alert("Por favor, selecione um lugar e uma data!");
+        return;
     }
+
+    emailjs.send("service_pwpfk0o", "template_5ukxwo1", {
+        lugar: selectedOption,
+        data: selectedDate
+    }).then(response => {
+        alert("Informações enviadas com sucesso!");
+        console.log("Sucesso:", response);
+    }).catch(error => {
+        alert("Erro ao enviar as informações.");
+        console.log("Erro:", error);
+    });
+}
 </script>
