@@ -223,9 +223,9 @@
         }
         </script>
         <script>
-    emailjs.init("YnVjNseiLi2Y2cYvP"); // Inicializa o EmailJS com sua chave pública
+    emailjs.init("YnVjNseiLi2Y2cYvP"); // Inicialização do EmailJS (fora de sendData)
 
-    function sendData() {
+function sendData() {
     const selectedOption = document.querySelector('.option.selected p')?.textContent || document.getElementById("customPlace")?.value || "Nenhum lugar especificado";
     const selectedDate = document.getElementById('datePicker').value;
 
@@ -234,14 +234,14 @@
         return;
     }
 
-    emailjs.send("service_pwpfk0o", "template_5ukxwo1", {
+    emailjs.send("service_tr47c6p", "template_sntw5v3", {
         lugar: selectedOption,
         data: selectedDate
     }).then(response => {
         alert("Espero você em nosso date!");
         console.log("Sucesso:", response);
 
-        // Reseta os campos e estados visuais após o envio
+        // Limpar campos e redefinir estados visuais
         document.getElementById('datePicker').value = '';
         document.getElementById('customPlace').value = '';
         const options = document.querySelectorAll('.option');
